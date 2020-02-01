@@ -1,0 +1,10 @@
+# Mac stuff
+.DS_Store
+
+# IDE/Editor data
+.idea/
+*.imr
+*.ipr
+*.iws
+
+.DS_Store

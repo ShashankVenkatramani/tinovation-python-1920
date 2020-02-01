@@ -1,0 +1,35 @@
+poswords = []
+negwords = []
+cpos = 0
+cneg = 0
+
+with open('negd.txt', 'r') as negg:
+    for line in negg:
+        current = line[:-1]
+        negwords.append(current)
+        
+with open('pos.txt', 'r') as poss:
+    for line in poss:
+        current = line[:-1]
+        poswords.append(current)
+        
+sentence = input("What sentence would you like to check? ")
+
+sentencesplit = sentence.split()
+    
+for i in sentencesplit:
+    if i in poswords:
+        cpos += 1
+    elif i in negwords:
+        cneg -= 1
+
+tot = cpos + cneg
+
+if (tot < 0):
+    print("Neg: "+ str(tot))
+    
+elif (tot > 0):
+    print("Pos: " + str(tot))
+else:
+    print("Neutral: " + str(tot))
+        

@@ -14,5 +14,9 @@ user = db.child("users").child("name").get()
 
 print(user.val())
 
-##data = {"name": "Mortimer 'Morty' Smith"}
-##db.child("users").push(data)
+data = {"names": "Wilson Lu"}
+data1 = {"names2": "Aditya Rao"}
+data2 = {"names3": "Arihan Yadav"}
+db.child("users").push(data)
+db.child("users").push(data1)
+db.child("users").push(data2)

@@ -1,0 +1,18 @@
+import pyrebase
+
+config = {
+    "apiKey": "AAAA_WmC20Y:APA91bF5StWNUmoGImHapkwcgPPGBXXxXT7ROU-tYc-BPgG-pFbpR0i_zipADlDRVh6k8L19XVf3RlKJkiUpZTwaS7Toll2lnvhhzqXouodjEW4F88SNYWyXHFn5MzS-DYy61oRbC698",
+    "authDomain": "tinovation-6cf5c.firebaseapp.com",
+    "databaseURL": "https://tinovation-6cf5c.firebaseio.com/",
+    "storageBucket": "tinovation-6cf5c.appspot.com"
+}
+
+firebase = pyrebase.initialize_app(config)
+
+db = firebase.database()
+user = db.child("users").child("name").get()
+
+print(user.val())
+
+##data = {"name": "Mortimer 'Morty' Smith"}
+##db.child("users").push(data)

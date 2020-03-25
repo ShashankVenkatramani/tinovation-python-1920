@@ -38,22 +38,20 @@ def downloadTrainingData():
         data.append([request["photography"], request["pokemon"], request["robotics"], request["scientology"], request["technology"]])
         dataUID.append(requestUID)
     df_cluster_data = pd.DataFrame(data, columns = ["photography", "pokemon", "robotics", "scientology", "technology"])
-    print(df_cluster_data)
-    print(data[197])
-    print(dataUID[197])
+
     pca = PCA(n_components = 2, random_state=1)
     df_cluster_pca = pca.fit_transform(df_cluster_data)
-    print("Explained Variance Ratio: " + str(df_cluster_pca.explained_variance_ratio_.cumsum()[1]))
+    print("Explained Variance Ratio: " + str(pca.explained_variance_ratio_.cumsum()[1]))
 
     distortions = []
     K_count_range = range(1,10)
 
-    for i in K_to_try:
+    for i in K_count_range:
         model = KMeans(n_clusters=i, init='k-means++', random_state=1)
         model.fit(df_cluster_pca)
         distortions.append(model.inertia_)
 
-    plt.plot(K_to_try, distortions, marker='o')
+    plt.plot(K_count_range, distortions, marker='o')
     plt.xlabel('Number of Clusters (k)')
     plt.ylabel('Distortion Amount')
     plt.show()

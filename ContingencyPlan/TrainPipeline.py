@@ -29,17 +29,17 @@ def downloadTrainingData():
     dataUID = []
     users = db.child("users").get().val()
     requests = db.child("requests").get().val()
-    for userUID in users:
-        user = users[userUID]
-        data.append([user["photography"], user["pokemon"], user["robotics"], user["scientology"], user["technology"]])
-        dataUID.append(userUID)
     for requestUID in requests:
         request = requests[requestUID]
         data.append([request["photography"], request["pokemon"], request["robotics"], request["scientology"], request["technology"]])
         dataUID.append(requestUID)
+    for userUID in users:
+        user = users[userUID]
+        data.append([user["photography"], user["pokemon"], user["robotics"], user["scientology"], user["technology"]])
+        dataUID.append(userUID)
     df_cluster_data = pd.DataFrame(data, columns = ["photography", "pokemon", "robotics", "scientology", "technology"])
     print("Data succesfully placed into Pandas Dataframe")
-
+    
 
 
     pca = PCA().fit(df_cluster_data)

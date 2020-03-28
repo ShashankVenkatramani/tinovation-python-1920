@@ -29,17 +29,19 @@ def downloadTrainingData():
     dataUID = []
     users = db.child("users").get().val()
     requests = db.child("requests").get().val()
-    for requestUID in requests:
-        request = requests[requestUID]
-        data.append([request["photography"], request["pokemon"], request["robotics"], request["scientology"], request["technology"]])
-        dataUID.append(requestUID)
-    for userUID in users:
-        user = users[userUID]
-        data.append([user["photography"], user["pokemon"], user["robotics"], user["scientology"], user["technology"]])
-        dataUID.append(userUID)
+    if requests != None:
+        for requestUID in requests:
+            request = requests[requestUID]
+            data.append([request["photography"], request["pokemon"], request["robotics"], request["scientology"], request["technology"]])
+            dataUID.append(requestUID)
+    if users != None:
+        for userUID in users:
+            user = users[userUID]
+            data.append([user["photography"], user["pokemon"], user["robotics"], user["scientology"], user["technology"]])
+            dataUID.append(userUID)
     df_cluster_data = pd.DataFrame(data, columns = ["photography", "pokemon", "robotics", "scientology", "technology"])
     print("Data succesfully placed into Pandas Dataframe")
-    
+
 
 
     pca = PCA().fit(df_cluster_data)
@@ -88,8 +90,15 @@ def downloadTrainingData():
     plt.legend()
     plt.grid()
     plt.show()
-
-
+    print(cluster_number)
+    request_count = 0
+    for requestUID in requests:
+        request = requests[requestUID]
+        request_cluster = cluster_number[request_count]
+        db.child("requests").child(requestUID).remove()
+        new_user_data = {"name": request["name"], "photography": request["photography"], "pokemon": request["pokemon"], "robotics": request["robotics"], "scientology": request["scientology"], "technology": request["technology"], "cluster": str(request_cluster)}
+        db.child("users").child(requestUID).set(new_user_data)
+        request_count += 1
 
 
 def random_generator(size = 32, chars = string.ascii_uppercase + string.digits):

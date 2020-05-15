@@ -1,7 +1,7 @@
 import pyrebase
 
 config = {
-  "apiKey": "AIzaSyCmuYk0aioP-O_6z_kF4xzLk6yD9eY3xTc",
+  "apiKey": "",
   "authDomain": "tinovationtestpy.firebaseapp.com",
   "databaseURL": "https://tinovationtestpy.firebaseio.com",
   "storageBucket": "tinovationtestpy.appspot.com"
